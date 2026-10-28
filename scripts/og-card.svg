@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <pattern id="check" width="32" height="32" patternUnits="userSpaceOnUse">
+      <rect width="32" height="32" fill="#f4f6f8"/>
+      <rect width="16" height="16" fill="#d9dde2"/>
+      <rect x="16" y="16" width="16" height="16" fill="#d9dde2"/>
+    </pattern>
+    <clipPath id="frame"><rect x="80" y="95" width="440" height="440" rx="24"/></clipPath>
+  </defs>
+  <rect width="1200" height="630" fill="#0b1624"/>
+  <g clip-path="url(#frame)">
+    <rect x="80" y="95" width="220" height="440" fill="#34465f"/>
+    <rect x="300" y="95" width="220" height="440" fill="url(#check)"/>
+    <g fill="#a9b3bf">
+      <circle cx="300" cy="250" r="78"/>
+      <path d="M140 535c14-120 84-178 160-178s146 58 160 178z"/>
+    </g>
+    <g clip-path="url(#right)">
+      <clipPath id="right"><rect x="300" y="95" width="220" height="440"/></clipPath>
+      <circle cx="300" cy="250" r="78" fill="#3fd8d4"/>
+      <path d="M140 535c14-120 84-178 160-178s146 58 160 178z" fill="#3fd8d4"/>
+    </g>
+  </g>
+  <rect x="297" y="95" width="6" height="440" fill="#f2c14e"/>
+  <rect x="80" y="95" width="440" height="440" rx="24" fill="none" stroke="#34465f" stroke-width="2"/>
+  <text x="590" y="250" font-family="Segoe UI, Arial, sans-serif" font-size="64" font-weight="700" fill="#e6e8e3">Background</text>
+  <text x="590" y="326" font-family="Segoe UI, Arial, sans-serif" font-size="64" font-weight="700" fill="#e6e8e3">remover</text>
+  <text x="590" y="390" font-family="Segoe UI, Arial, sans-serif" font-size="28" fill="#a9b3bf">Cut a photo out in your browser.</text>
+  <text x="590" y="428" font-family="Segoe UI, Arial, sans-serif" font-size="28" fill="#a9b3bf">The photo never leaves your device.</text>
+  <text x="590" y="500" font-family="Segoe UI, Arial, sans-serif" font-size="26" fill="#3fd8d4">background-remover.dloizides.com</text>
+</svg>

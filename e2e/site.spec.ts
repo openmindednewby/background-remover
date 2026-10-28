@@ -30,7 +30,9 @@ test('empty state opens on Choose photo, every control is at least 44 px, text f
 test('a photo is cut on the device: Download PNG gets focus, the tool row is aligned, and no request carries image bytes', async ({ page, baseURL }) => {
   test.setTimeout(CUT_TIMEOUT_MS * 2);
   await page.route('https://analytics.dloizides.com/**', (r) => r.abort());
-  await page.goto('/');
+  const violations: string[] = [];
+  page.on('console', (m) => { if (m.text().includes('Content Security Policy')) violations.push(m.text()); });
+  const doc = await page.goto('/');
   const photo = await page.screenshot({ type: 'png' });
   const seen: Seen[] = [];
   page.on('request', (r: Request) => seen.push({ url: r.url(), method: r.method(), bodyBytes: r.postDataBuffer()?.length ?? 0 }));
@@ -56,4 +58,6 @@ test('a photo is cut on the device: Download PNG gets focus, the tool row is ali
   const leaks = seen.filter((r) => r.method !== 'GET' || r.bodyBytes > 0 || !(r.url.startsWith(baseURL ?? '-') || r.url.startsWith('blob:') || r.url.startsWith('https://analytics.dloizides.com/')));
   expect(seen.some((r) => r.url.includes('/bg-removal/'))).toBe(true);
   expect(leaks).toEqual([]);
+  expect(doc?.headers()['content-security-policy']).toContain("connect-src 'self' https://analytics.dloizides.com");
+  expect(violations).toEqual([]);
 });

@@ -1,12 +1,9 @@
 import '@fontsource/delius/400.css';
 import './styles.css';
-import { createBackgroundRemover, encodeCutout, type BackgroundRemover, type BrushMode, type CutResult } from '@dloizides/background-removal';
+import { BrushMode, createBackgroundRemover, encodeCutout, type BackgroundRemover, type CutResult } from '@dloizides/background-removal';
 import { openEditor, type Editor } from './editor';
 import { clampSplit, cutoutName, isSupportedImage, seconds } from './logic';
 import { FM } from './strings';
-
-const KEEP = 'keep' as BrushMode;
-const ERASE = 'erase' as BrushMode;
 
 const $ = <T extends HTMLElement>(id: string): T => document.getElementById(id) as T;
 const ui = {
@@ -19,7 +16,7 @@ const ui = {
 const editControls = [ui.keep, ui.erase, ui.size, ui.undo, ui.download];
 
 let remover: Promise<BackgroundRemover> | undefined;
-let mode = KEEP;
+let mode: BrushMode = BrushMode.Keep;
 let editor: Editor | undefined;
 let current: { cut: CutResult; name: string } | undefined;
 let origUrl = '';
@@ -82,8 +79,8 @@ async function download(): Promise<void> {
 
 function pickMode(picked: BrushMode): void {
   mode = picked;
-  ui.keep.setAttribute('aria-pressed', String(picked === KEEP));
-  ui.erase.setAttribute('aria-pressed', String(picked === ERASE));
+  ui.keep.setAttribute('aria-pressed', String(picked === BrushMode.Keep));
+  ui.erase.setAttribute('aria-pressed', String(picked === BrushMode.Erase));
 }
 
 function wireDrop(): void {
@@ -100,15 +97,15 @@ function wireDrop(): void {
 function wire(): void {
   ui.choose.addEventListener('click', () => ui.file.click());
   ui.file.addEventListener('change', () => { const f = ui.file.files?.[0]; if (f !== undefined) void cutPhoto(f); });
-  ui.keep.addEventListener('click', () => pickMode(KEEP));
-  ui.erase.addEventListener('click', () => pickMode(ERASE));
+  ui.keep.addEventListener('click', () => pickMode(BrushMode.Keep));
+  ui.erase.addEventListener('click', () => pickMode(BrushMode.Erase));
   ui.undo.addEventListener('click', () => editor?.undo());
   ui.again.addEventListener('click', showEmpty);
   ui.download.addEventListener('click', () => void download());
   ui.split.addEventListener('input', () => ui.compare.style.setProperty('--split', `${clampSplit(Number(ui.split.value))}%`));
   ui.split.setAttribute('aria-label', FM('compare'));
   wireDrop();
-  pickMode(KEEP);
+  pickMode(BrushMode.Keep);
   ui.choose.focus();
 }
 
