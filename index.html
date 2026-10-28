@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b1624" />
+  <title>Background remover: cut out a photo in your browser, free and private</title>
+  <meta name="description" content="Remove the background from a photo in your browser. Free, no sign-up, and private: the photo never leaves your device. Refine with a keep/erase brush and download a transparent PNG." />
+  <link rel="canonical" href="https://background-remover.dloizides.com/" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Background remover" />
+  <meta property="og:description" content="Remove the background from a photo in your browser. The photo never leaves your device." />
+  <meta property="og:url" content="https://background-remover.dloizides.com/" />
+  <meta property="og:image" content="https://background-remover.dloizides.com/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Background remover" />
+  <meta name="twitter:description" content="Remove the background from a photo in your browser. The photo never leaves your device." />
+  <meta name="twitter:image" content="https://background-remover.dloizides.com/og-image.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Background remover",
+    "url": "https://background-remover.dloizides.com/",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+    "description": "Remove the background from a photo in your browser. The photo never leaves your device."
+  }
+  </script>
+  <script async src="https://analytics.dloizides.com/script.js" data-website-id="REPLACE_WITH_UMAMI_WEBSITE_ID"></script>
+</head>
+<body>
+  <div class="app">
+    <header class="head">
+      <h1 class="mark">Background remover</h1>
+      <p class="privacy"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="4" y="1.5" width="8" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="11.5" r="1" fill="currentColor"/></svg>Your photo never leaves your device.</p>
+    </header>
+    <main class="main">
+      <section id="empty" class="drop" aria-label="Drop a photo here or choose one" data-testid="drop">
+        <svg width="32" height="32" viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="3" width="13" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M3 12l3.5-4 3 3 2-2 2.5 3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
+        <p>Drop a photo here</p>
+        <button id="choose" class="btn primary" type="button" data-testid="choose">Choose photo</button>
+        <p class="label">JPG, PNG or WebP</p>
+        <p id="drop-error" class="label error" role="alert"></p>
+        <input id="file" type="file" accept="image/jpeg,image/png,image/webp" hidden data-testid="file" />
+      </section>
+      <section id="work" class="work" hidden data-testid="work">
+        <div id="compare" class="compare">
+          <figure class="pane orig"><figcaption class="label">Original</figcaption><div class="box"><img id="orig" alt="Original photo" /></div></figure>
+          <figure class="pane cut"><figcaption class="label">Cut-out</figcaption><div class="box stage"><canvas id="cut" aria-label="Cut-out preview: paint to keep or erase" data-testid="canvas"></canvas></div></figure>
+          <input id="split" class="split" type="range" min="0" max="100" value="50" data-testid="split" />
+          <span class="knob" aria-hidden="true">&#8596;</span>
+        </div>
+        <div class="bar">
+          <span id="status" class="status" role="status" aria-live="polite" data-testid="status"></span>
+          <div class="tools" role="toolbar" aria-label="Refine brush" data-testid="tools">
+            <button id="keep" class="btn" type="button" aria-pressed="true"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 5v6M5 8h6" stroke="currentColor" stroke-width="1.5"/></svg>Keep</button>
+            <button id="erase" class="btn" type="button" aria-pressed="false"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5 8h6" stroke="currentColor" stroke-width="1.5"/></svg>Erase</button>
+            <label class="size">Size<input id="size" type="range" min="4" max="80" value="24" aria-label="Brush size" /></label>
+            <button id="undo" class="btn" type="button" aria-label="Undo"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 4L2 7l3 3M2.5 7H10a4 4 0 010 8H8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+          </div>
+          <button id="new" class="btn" type="button" data-testid="new">New photo</button>
+          <button id="download" class="btn" type="button" data-testid="download"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v9M4 7l4 4 4-4M3 14h10" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Download PNG</button>
+        </div>
+      </section>
+    </main>
+    <footer class="foot">
+      <nav class="sibs" aria-label="More tools"><a href="https://qr-code-generator.dloizides.com/">QR code generator</a><a href="https://ocr-scanner.dloizides.com/">OCR scanner</a></nav>
+    </footer>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

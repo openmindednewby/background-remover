@@ -1,0 +1,46 @@
+{
+ "a": {
+  "m": {
+   "inventory": "11/11",
+   "missing": [],
+   "aligned": true,
+   "issues": []
+  },
+  "d": {
+   "inventory": "11/11",
+   "missing": [],
+   "aligned": true,
+   "issues": []
+  }
+ },
+ "b": {
+  "m": {
+   "inventory": "11/11",
+   "missing": [],
+   "aligned": true,
+   "issues": [
+    "cut:clip:New photo"
+   ]
+  },
+  "d": {
+   "inventory": "11/11",
+   "missing": [],
+   "aligned": true,
+   "issues": []
+  }
+ },
+ "c": {
+  "m": {
+   "inventory": "11/11",
+   "missing": [],
+   "aligned": true,
+   "issues": []
+  },
+  "d": {
+   "inventory": "11/11",
+   "missing": [],
+   "aligned": true,
+   "issues": []
+  }
+ }
+}

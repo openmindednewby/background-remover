@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://background-remover.dloizides.com/sitemap.xml

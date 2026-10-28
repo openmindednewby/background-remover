@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Background remover mock</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Delius&display=swap" rel="stylesheet">
+<style>
+:root{
+  --page:#0b1624; --card:#1c2b42; --raised:#263752; --hair:#34465f;
+  --ink:#e6e8e3; --ink-2:#a9b3bf; --accent:#3fd8d4; --on-accent:#06222a;
+  --focus:#f2c14e; --check-a:#d9dde2; --check-b:#f4f6f8;
+  --r-box:12px; --r-ctl:8px; --ctl:44px;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; --mark:"Delius",var(--sans);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--page);color:var(--ink);font:16px/1.45 var(--sans)}
+button{font:inherit;color:inherit}
+.mark{font-family:var(--mark);font-weight:400;letter-spacing:-.01em;margin:0}
+.privacy{color:var(--ink-2);font-size:14px;margin:0;display:flex;gap:8px;align-items:center}
+.privacy svg{flex:none}
+.btn{height:var(--ctl);min-width:var(--ctl);padding:0 14px;border-radius:var(--r-ctl);border:1px solid var(--hair);
+  background:transparent;display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;white-space:nowrap}
+.btn[aria-pressed="true"]{background:var(--raised);border-color:var(--ink-2)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn.primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent);font-weight:600}
+.btn:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.size{height:var(--ctl);display:inline-flex;align-items:center;gap:8px;padding:0 12px;border:1px solid var(--hair);border-radius:var(--r-ctl);color:var(--ink-2);font-size:14px}
+.size input{width:88px;accent-color:var(--ink-2)}
+.status{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:14px;font-variant-numeric:tabular-nums}
+.drop{border:2px dashed var(--hair);border-radius:var(--r-box);display:grid;place-items:center;align-content:center;text-align:center;gap:12px;padding:24px}
+.drop p{margin:0;color:var(--ink-2)}
+.stage{border-radius:var(--r-box);overflow:hidden;position:relative;
+  background:repeating-conic-gradient(var(--check-a) 0 25%,var(--check-b) 0 50%) 0 0/20px 20px}
+.stage svg.photo{display:block;width:100%;height:100%}
+.sibs{display:flex;gap:16px;font-size:14px;color:var(--ink-2)}
+.sibs a{color:var(--ink-2);text-underline-offset:3px;min-height:44px;display:inline-flex;align-items:center}
+.tools{display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap}
+.label{font-size:12px;color:var(--ink-2);text-transform:none;margin:0}
+.grid-tools{display:grid;grid-template-columns:1fr 1fr var(--ctl);gap:8px}
+.grid-tools .size{grid-column:1 / -1;order:4}
+.grid-tools .size input{flex:1;width:auto}
+.grid-tools .btn{min-width:0}
+@media (max-width:600px){ .tools{display:grid;grid-template-columns:1fr 1fr var(--ctl);gap:8px}
+  .tools .size{grid-column:1 / -1;order:4} .tools .size input{flex:1;width:auto} .tools .btn{min-width:0;padding:0 10px} }
+/* ---- A: family card ---- */
+.A{min-height:100vh;display:flex;justify-content:center;padding:24px 16px}
+.A .card{width:100%;max-width:1100px;background:var(--card);border-radius:var(--r-box);padding:24px;display:flex;flex-direction:column;gap:16px;align-self:flex-start}
+.A .mark{font-size:32px;text-align:center}
+.A .privacy{justify-content:center}
+.A .drop{height:320px}
+.A .stage{height:360px}
+.A .work{display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:start}
+.A .work .stage{height:480px}
+.A .side{display:flex;flex-direction:column;gap:12px}
+.A .bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.A .sibs{justify-content:center}
+@media (max-width:600px){
+  .A{padding:12px}
+  .A .card{padding:16px;gap:12px}
+  .A .mark{font-size:26px}
+  .A .drop,.A .stage{height:250px}
+  .A .size input{width:60px}
+  .A .work{grid-template-columns:1fr;gap:12px}
+  .A .work .stage{height:250px}
+  .A .bar .btn.primary{width:100%}
+}
+/* ---- B: workbench ---- */
+.B{min-height:100vh;display:grid;grid-template-columns:288px 1fr}
+.B .rail{background:var(--card);padding:24px 20px;display:flex;flex-direction:column;gap:16px}
+.B .rail .mark{font-size:24px}
+.B .rail .group{display:flex;flex-direction:column;gap:8px}
+
+
+.B .rail .size{width:100%}
+.B .rail .size input{flex:1}
+.B .rail .push{margin-top:auto;display:flex;flex-direction:column;gap:12px}
+.B .main{padding:24px;display:flex;flex-direction:column;gap:12px}
+.B .main .top{display:flex;justify-content:space-between;align-items:center;min-height:var(--ctl)}
+.B .main .drop,.B .main .stage{flex:1;min-height:420px}
+@media (max-width:600px){
+  .B{display:flex;flex-direction:column;min-height:100vh}
+  .B .rail{display:contents}
+  .B .head{order:0;display:flex;justify-content:space-between;align-items:center;padding:12px 16px 0}
+  .B .main{order:1;padding:8px 16px;flex:1}
+  .B .main .top{min-height:auto}
+  .B .main .drop,.B .main .stage{min-height:0;height:236px;flex:none}
+  .B .dock{order:2;background:var(--card);padding:12px 16px 16px;display:flex;flex-direction:column;gap:10px}
+  .B .rail .group.hide-m,.B .rail .push .sibs{display:none}
+  .B .dock .tools .btn{padding:0 10px}
+  .B .dock .size input{width:56px}
+}
+@media (min-width:601px){ .B .dock{display:flex;flex-direction:column;gap:16px} .B .head{display:flex;flex-direction:column;gap:6px} .B .only-m{display:none} }
+/* ---- C: side by side ---- */
+.C{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:24px 16px;gap:16px}
+.C header{width:100%;max-width:1100px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.C .mark{font-size:28px}
+.C .panes{width:100%;max-width:1100px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.C .pane{display:flex;flex-direction:column;gap:8px}
+.C .pane .stage,.C .pane .orig{height:400px;border-radius:var(--r-box);overflow:hidden}
+.C .drop{width:100%;max-width:1100px;height:320px}
+.C .bar{width:100%;max-width:1100px;display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--card);border-radius:var(--r-box);padding:12px}
+.C footer{width:100%;max-width:1100px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.C .slider{display:none}
+@media (max-width:600px){
+  .C{padding:12px;gap:10px}
+  .C header{flex-direction:column;gap:2px}
+  .C .mark{font-size:24px}
+  .C .panes{display:none}
+  .C .slider{display:block;width:100%;height:270px;position:relative;border-radius:var(--r-box);overflow:hidden}
+  .C .slider .half{position:absolute;inset:0}
+  .C .slider .left{clip-path:inset(0 50% 0 0)}
+  .C .slider .handle{position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--ink);transform:translateX(-1px)}
+  .C .slider .knob{position:absolute;top:50%;left:50%;width:44px;height:44px;border-radius:22px;background:var(--card);border:1px solid var(--ink-2);transform:translate(-50%,-50%);display:grid;place-items:center}
+  .C .drop{height:300px}
+  .C .bar{flex-direction:column;align-items:stretch}
+  .C .bar .btn.primary{width:100%}
+  .C .size input{width:52px}
+  .C .bar .tools .btn{padding:0 10px}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="subject" viewBox="0 0 400 300">
+      <path d="M200 52c-26 0-40 22-36 46-24-8-46 10-40 34-20 2-28 26-14 40h180c14-14 6-38-14-40 6-24-16-42-40-34 4-24-10-46-36-46z" fill="#4f8a4a"/>
+      <path d="M214 70c8 18 2 36-12 52M176 86c10 10 14 24 10 40" stroke="#36663a" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <rect x="148" y="168" width="104" height="104" rx="14" fill="#c9673f"/>
+      <rect x="140" y="160" width="120" height="22" rx="8" fill="#b4562f"/>
+      <path d="M252 196c26 0 30 40 0 44" stroke="#c9673f" stroke-width="12" fill="none"/>
+    </symbol>
+    <symbol id="room" viewBox="0 0 400 300">
+      <rect width="400" height="300" fill="#e9d6bd"/>
+      <rect y="0" width="400" height="300" fill="#d8c0a0" opacity=".35"/>
+      <rect x="40" y="30" width="120" height="150" fill="#f3e6d3" stroke="#cdb593" stroke-width="4"/>
+      <rect y="262" width="400" height="38" fill="#8b6a4a"/>
+      <rect y="262" width="400" height="6" fill="#6f5238"/>
+    </symbol>
+    <symbol id="ico-device" viewBox="0 0 16 16"><rect x="4" y="1.5" width="8" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="11.5" r="1" fill="currentColor"/></symbol>
+    <symbol id="ico-keep" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 5v6M5 8h6" stroke="currentColor" stroke-width="1.5"/></symbol>
+    <symbol id="ico-erase" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5 8h6" stroke="currentColor" stroke-width="1.5"/></symbol>
+    <symbol id="ico-undo" viewBox="0 0 16 16"><path d="M5 4L2 7l3 3M2.5 7H10a4 4 0 010 8H8" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+    <symbol id="ico-down" viewBox="0 0 16 16"><path d="M8 2v9M4 7l4 4 4-4M3 14h10" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+    <symbol id="ico-tick" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+    <symbol id="ico-photo" viewBox="0 0 16 16"><rect x="1.5" y="3" width="13" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 12l3.5-4 3 3 2-2 2.5 3" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+  </defs>
+</svg>
+<div id="root"></div>
+<script>
+const q=new URLSearchParams(location.search), opt=(q.get('opt')||'a').toUpperCase(), cut=q.get('state')==='cut';
+const ic=(id,s=16)=>`<svg width="${s}" height="${s}" aria-hidden="true"><use href="#${id}"/></svg>`;
+const priv=`<p class="privacy" data-inv="privacy">${ic('ico-device')}Your photo never leaves your device.</p>`;
+const sibs=`<nav class="sibs" data-inv="siblings" aria-label="More tools"><a href="#">QR code generator</a><a href="#">OCR scanner</a></nav>`;
+const upload=(primary)=>`<button class="btn ${primary?'primary':''}" data-inv="upload">${ic('ico-photo')}Choose photo</button>`;
+const drop=`<div class="drop" data-inv="drop" role="button" aria-label="Drop a photo here or choose one">${ic('ico-photo',32)}<p>Drop a photo here</p>${upload(true)}<p class="label">JPG, PNG or WebP</p></div>`;
+const stage=`<div class="stage" data-inv="stage"><svg class="photo" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Cut-out preview"><use href="#subject"/><circle cx="214" cy="120" r="16" fill="none" stroke="#0b1624" stroke-width="2" stroke-dasharray="3 3"/></svg></div>`;
+const orig=`<svg class="photo" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Original photo"><use href="#room"/><use href="#subject"/></svg>`;
+const status=cut?`<span class="status" data-inv="cut" role="status">${ic('ico-tick')}Background removed in 1.4 s</span>`:'';
+const tools=(dis)=>`<div class="tools" data-row="tools" role="toolbar" aria-label="Refine brush">
+  <button class="btn" aria-pressed="true" data-inv="keep" ${dis}>${ic('ico-keep')}Keep</button>
+  <button class="btn" aria-pressed="false" data-inv="erase" ${dis}>${ic('ico-erase')}Erase</button>
+  <label class="size" data-inv="size">Size<input type="range" min="4" max="80" value="24" ${dis} aria-label="Brush size"></label>
+  <button class="btn" aria-label="Undo" data-inv="undo" ${dis}>${ic('ico-undo')}</button></div>`;
+const dl=(dis)=>`<button class="btn ${dis?'':'primary'}" data-inv="download" ${dis}>${ic('ico-down')}Download PNG</button>`;
+const again=`<button class="btn" data-inv="new">New photo</button>`;
+let h='';
+if(opt==='A'){
+  h=`<main class="A"><div class="card"><h1 class="mark">Background remover</h1>${priv}
+  ${cut?`<div class="work">${stage}<div class="side">${status}${tools('').replace(`class="tools"`,`class="tools grid-tools"`)}${dl('')}${again}</div></div>`:drop}
+  ${sibs}</div></main>`;
+}else if(opt==='B'){
+  const dis=cut?'':'disabled';
+  h=`<div class="B"><aside class="rail">
+   <div class="head"><h1 class="mark">Background remover</h1><span class="only-m">${cut?again:''}</span>${cut?'':''}<span class="hide-d"></span></div>
+   <div class="group hide-m"><p class="label">Photo</p>${cut?again:upload(false)}</div>
+   <div class="dock"><div class="group"><p class="label hide-m">Refine</p>${tools(dis).replace(`class="tools"`,`class="tools grid-tools"`)}</div>
+   <div class="push">${dl(dis)}${priv}${sibs}</div></div></aside>
+   <section class="main"><div class="top">${cut?status:`<span class="status">No photo yet</span>`}</div>${cut?stage:drop}
+   <div class="only-m">${sibs}</div></section></div>`;
+}else{
+  h=`<div class="C"><header><h1 class="mark">Background remover</h1>${priv}</header>
+  ${cut?`<div class="panes"><div class="pane"><p class="label">Original</p><div class="orig">${orig}</div></div>
+     <div class="pane"><p class="label">Cut-out</p>${stage}</div></div>
+   <div class="slider" aria-label="Compare original and cut-out"><div class="half">${stage}</div><div class="half left">${orig}</div><div class="handle"></div><div class="knob" aria-hidden="true">&#8596;</div></div>
+   <div class="bar">${status}${tools('')}${again}${dl('')}</div>`:drop}
+  <footer><span></span>${sibs}</footer></div>`;
+}
+document.getElementById('root').innerHTML=h;
+document.querySelectorAll('.only-m .sibs, .hide-d').forEach(()=>{});
+</script>
+</body>
+</html>

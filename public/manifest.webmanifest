@@ -1,0 +1,9 @@
+{
+  "name": "Background remover",
+  "short_name": "BG remover",
+  "description": "Remove the background from a photo in your browser. Free, private: the photo never leaves your device.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b1624",
+  "theme_color": "#0b1624"
+}
