@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "lint": "eslint . --max-warnings 0",
+    "lint": "eslint-baseline lint -- . --max-warnings 0",
     "og-image": "node scripts/og-image.mjs"
   },
   "dependencies": {
