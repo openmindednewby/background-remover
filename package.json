@@ -18,7 +18,7 @@
     "@fontsource/delius": "^5.1.0"
   },
   "devDependencies": {
-    "@dloizides/frontend-devtools": "^2.7.2",
+    "@dloizides/frontend-devtools": "^2.7.3",
     "@dloizides/og-image-generator": "^1.0.0",
     "@eslint/js": "^9.39.5",
     "@playwright/test": "^1.48.0",
